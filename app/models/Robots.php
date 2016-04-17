@@ -1,4 +1,7 @@
 <?php
+namespace Vokuro\Models;
+
+use Vokuro\Models\RobotsParts;
 
 class Robots extends \Phalcon\Mvc\Model
 {
@@ -33,6 +36,8 @@ class Robots extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource("Robots");
+        $this->hasMany('id','RobotsParts','robots_id');
+        $this->hasManyToMany('id', 'RobotsParts', 'robots_id', 'parts_id', 'Parts', 'id');
     }
 
     /**

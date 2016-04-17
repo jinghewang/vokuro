@@ -1,5 +1,9 @@
 <?php
 
+namespace Vokuro\Models;
+
+use Vokuro\Models\RobotsParts;
+
 class Parts extends \Phalcon\Mvc\Model
 {
 
@@ -21,6 +25,7 @@ class Parts extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource("Parts");
+        $this->hasMany('id','RobotsParts','parts_id');
     }
 
     /**
