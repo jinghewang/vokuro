@@ -1,7 +1,13 @@
 <?php
 namespace Vokuro\Models;
 
-use Vokuro\Models\RobotsParts;
+/**
+ * Class Robots
+ * @package Vokuro\Models
+ *
+ * @property RobotsParts $robotsParts
+ * @property Parts $parts
+ */
 
 class Robots extends \Phalcon\Mvc\Model
 {
@@ -36,8 +42,8 @@ class Robots extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource("Robots");
-        $this->hasMany('id','RobotsParts','robots_id');
-        $this->hasManyToMany('id', 'RobotsParts', 'robots_id', 'parts_id', 'Parts', 'id');
+        $this->hasMany('id','Vokuro\Models\RobotsParts','robots_id',['alias'=>'RobotsParts']);
+        $this->hasManyToMany('id', 'Vokuro\Models\RobotsParts', 'robots_id', 'parts_id', 'Parts', 'id',['alias'=>'Parts']);
     }
 
     /**
