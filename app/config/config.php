@@ -3,7 +3,7 @@
 use Phalcon\Config;
 use Phalcon\Logger;
 
-//define('APP_DIR', dirname(__DIR__));
+define('APP_DIR', dirname(__DIR__));
 
 return new Config([
     'database' => [
@@ -21,6 +21,7 @@ return new Config([
         'libraryDir' => APP_DIR . '/library/',
         'pluginsDir' => APP_DIR . '/plugins/',
         'cacheDir' => APP_DIR . '/cache/',
+        'migrationsDir' => APP_DIR . '/migrations/',
         'helpersDir' => APP_DIR . '/helpers/',
         'baseUri' => '/',
         'publicUrl' => 'vokuro.phalconphp.com',
