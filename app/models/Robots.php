@@ -1,6 +1,9 @@
 <?php
 namespace Vokuro\Models;
 
+
+use Phalcon\Events\Manager as EventsManager;
+
 /**
  * Class Robots
  * @package Vokuro\Models
@@ -42,6 +45,29 @@ class Robots extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource("Robots");
+
+
+
+
+        //event
+        $eventsManager = new EventsManager();
+        $eventsManager->attach('model',function($event,$robot){
+            /**
+             * @var \Phalcon\Events\Manager $event
+             * @var \Vokuro\Models\Robots $robot
+             */
+            if ($event->getType() == 'beforeSave'){
+                if ($robot->name == 'Scooby Doo') {
+                    echo "Scooby Doo isn't a robot!";
+                    return false;
+                }
+            }
+            return true;
+        });
+        // Attach the events manager to the event
+        $this->setEventsManager($eventsManager);
+
+        //relations
         $this->hasMany('id','Vokuro\Models\RobotsParts','robots_id',[
             'alias'=>'RobotsParts',
             'foreignKey' => array(
@@ -106,6 +132,27 @@ class Robots extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    public function beforeSave()
+    {
+
+    }
+
+    /**
+     * Independent Column Mapping.
+     * Keys are the real names in the table and the values their names in the application
+     *
+     * @return array
+     */
+    public function columnMap()
+    {
+        return array(
+            'id' => 'id',
+            'name' => 'name',
+            'type' => 'type',
+            'year' => 'year'
+        );
     }
 
 }
