@@ -167,3 +167,5 @@ app/cache/volt/*.php
 /vendor
 app/cache/metaData/*.php
 data.txt
+.phalcon
+.idea
