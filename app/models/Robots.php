@@ -42,9 +42,29 @@ class Robots extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource("Robots");
-        $this->hasMany('id','Vokuro\Models\RobotsParts','robots_id',['alias'=>'RobotsParts']);
+        $this->hasMany('id','Vokuro\Models\RobotsParts','robots_id',[
+            'alias'=>'RobotsParts',
+            'foreignKey' => array(
+                //'action' => Relation::ACTION_CASCADE
+                //"allowNulls" => true,
+                //"message"    => "The part_id does not exist on the Parts model"
+            )
+        ]);
         $this->hasManyToMany('id', 'Vokuro\Models\RobotsParts', 'robots_id', 'parts_id', 'Parts', 'id',['alias'=>'Parts']);
     }
+
+    public function getCount($parameterss = null)
+    {
+        return self::count([
+            "distinct" => "area",
+            "group" => "area",
+            "order" => "rowcount",
+            //"type > ?0",
+            //"bind" => array($type),
+        ]);
+    }
+
+
 
     /**
      * Returns table name mapped in the model.
@@ -54,6 +74,16 @@ class Robots extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'Robots';
+    }
+
+
+    /**
+     * @param $arguments
+     * @return \Vokuro\Models\Parts[]
+     */
+    public function getParts($arguments)
+    {
+        return $this->getRelated('Parts',$arguments);
     }
 
     /**
