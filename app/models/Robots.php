@@ -3,6 +3,8 @@ namespace Vokuro\Models;
 
 
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Mvc\Model\Validator\Inclusionin;
+use Phalcon\Mvc\Model\Validator\Uniqueness;
 
 /**
  * Class Robots
@@ -100,6 +102,21 @@ class Robots extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'Robots';
+    }
+
+    public function validation()
+    {
+        $this->validate(new InclusionIn([
+            'field'=>'type',
+            'domain'=>["Mechanical", "Virtual"],
+        ]));
+
+        $this->validate(new Uniqueness([
+            'field'=>'name',
+            'message' => 'name is unique',
+        ]));
+
+        return !$this->validationHasFailed();
     }
 
 

@@ -91,7 +91,7 @@ class RobotsController extends ControllerBase
     {
         //create
         $robots = new Robots();
-        $robots->name = 'Scooby Doo';
+        $robots->name = 'wjh';
         $robots->year = date('y');
         $robots->type = 1;
         if ($robots->save()){
