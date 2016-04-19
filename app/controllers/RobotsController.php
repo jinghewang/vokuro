@@ -87,5 +87,33 @@ class RobotsController extends ControllerBase
 
     }
 
+    public function createAction()
+    {
+        //create
+        $robots = new Robots();
+        $robots->name = 'wjh';
+        $robots->year = date('y');
+        $robots->type = 1;
+        if ($robots->save()){
+            echo '成功';
+        }
+        else{
+            foreach ($robots->getMessages() as $message) {
+                echo $message->getMessage();
+            }
+            echo '失败';
+        }
+
+        //count
+        $count =Robots::count();
+        echo "count:{$count}";
+    }
+
+    public function countAction()
+    {
+        $robots = Robots::count();
+        echo "count:{$robots}";
+    }
+
 }
 
