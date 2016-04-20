@@ -4,6 +4,7 @@ namespace Vokuro\Controllers;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset;
 use Vokuro\Helpers\UtilsHelper;
+use Vokuro\Models\Parts;
 use Vokuro\Models\Robots;
 use Vokuro\Models\RobotsParts;
 
@@ -113,6 +114,43 @@ class RobotsController extends ControllerBase
     {
         $robots = Robots::count();
         echo "count:{$robots}";
+    }
+
+
+    public function rewindAction()
+    {
+        $robots = Robots::find();
+        $robots->rewind();
+        while ($robots->valid()) {
+            $robot = $robots->current();
+            echo $robot->name, "\n";
+            $robots->next();
+        }
+    }
+
+    public function serializeAction()
+    {
+        $parts = Parts::find();
+        file_put_contents('cache.txt',serialize($parts));
+        //$parts = unserialize(file_get_contents('cache.txt'));
+
+    }
+
+    public function unserializeAction()
+    {
+        $parts = unserialize(file_get_contents('cache.txt'));
+        foreach ($parts as $part) {
+            echo $part->name;
+        }
+    }
+
+    public function queryAction()
+    {
+        $query = Robots::query()
+            ->where("id>0")
+            ->execute();
+
+        print_r($query->toArray());
     }
 
 }
