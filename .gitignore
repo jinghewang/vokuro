@@ -163,8 +163,8 @@ pip-log.txt
 
 composer.lock
 app/config/config.php
-app/cache/volt/*.php
 /vendor
+app/cache/volt/*.php
 app/cache/metaData/*.php
 data.txt
 .phalcon

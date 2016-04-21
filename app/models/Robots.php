@@ -2,6 +2,8 @@
 namespace Vokuro\Models;
 
 
+use Common\Behaviors\Blameable;
+use Common\Behaviors\Sluggable;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model\Validator\Inclusionin;
 use Phalcon\Mvc\Model\Validator\Uniqueness;
@@ -48,8 +50,9 @@ class Robots extends \Phalcon\Mvc\Model
     {
         $this->setSource("Robots");
 
+        //$this->addBehavior(new Sluggable());
 
-
+        $this->addBehavior(new Blameable());
 
         //event
         $eventsManager = new EventsManager();
@@ -106,15 +109,15 @@ class Robots extends \Phalcon\Mvc\Model
 
     public function validation()
     {
-        $this->validate(new InclusionIn([
-            'field'=>'type',
-            'domain'=>["Mechanical", "Virtual"],
-        ]));
+//        $this->validate(new InclusionIn([
+//            'field'=>'type',
+//            'domain'=>["Mechanical", "Virtual"],
+//        ]));
 
-        $this->validate(new Uniqueness([
-            'field'=>'name',
-            'message' => 'name is unique',
-        ]));
+//        $this->validate(new Uniqueness([
+//            'field'=>'name',
+//            'message' => 'name is unique',
+//        ]));
 
         return !$this->validationHasFailed();
     }

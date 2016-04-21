@@ -63,4 +63,39 @@ class UtilsHelper extends \Phalcon\Di\Injectable
             return $defaultValue;
 
     }
+
+
+
+    public static function print_r_m($models,$pre=false)
+    {
+        $data = [];
+        foreach ($models as $item) {
+            if ($item instanceof \Phalcon\Mvc\Model)
+                $data[] = $item->toArray();
+        }
+        if ($pre)
+            echo "<pre>";
+        print_r($data);
+        if ($pre)
+            echo "</pre>";
+    }
+
+
+    public static function print_m($model)
+    {
+        $data = [];
+        if ($model instanceof \Phalcon\Mvc\Model)
+            $data = $model->toArray();
+
+        print_r($data);
+    }
+
+    public static function isModelArray($models)
+    {
+        foreach ($models as $item) {
+            if (!($item instanceof \Phalcon\Mvc\Model))
+                return false;
+        }
+        return true;
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Vokuro\Controllers;
 
+use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset;
 use Vokuro\Helpers\UtilsHelper;
@@ -142,6 +143,27 @@ class RobotsController extends ControllerBase
         foreach ($parts as $part) {
             echo $part->name;
         }
+    }
+
+    public function filterAction()
+    {
+        $robots = Robots::find()->filter(
+            function ($robot) {
+                if ($robot->name == 'r1')
+                    return $robot;
+            }
+        );
+
+        \Common\Helpers\UtilsHelper::print_r_m($robots,true);
+    }
+
+    public function titleAction()
+    {
+
+        $robots = Robots::findFirst();
+        $slug = $robots->getSlug();
+        var_dump($slug);
+        die;
     }
 
     public function queryAction()

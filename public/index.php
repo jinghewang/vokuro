@@ -25,6 +25,9 @@ try {
 	 */
 	include APP_DIR . '/config/services.php';
 
+
+	include APP_DIR . '/common/functions.php';
+
 	/**
 	 * Handle the request
 	 */

@@ -22,7 +22,8 @@ return new Config([
         'pluginsDir' => APP_DIR . '/plugins/',
         'cacheDir' => APP_DIR . '/cache/',
         'migrationsDir' => APP_DIR . '/migrations/',
-        'helpersDir' => APP_DIR . '/helpers/',
+        'helpersDir' => APP_DIR . '/common/helpers/',
+        'behaviorsDir' => APP_DIR . '/common/behaviors/',
         'baseUri' => '/',
         'publicUrl' => 'vokuro.phalconphp.com',
         'cryptSalt' => 'eEAfR|_&G&f,+vU]:jFr!!A&+71w1Ms9~8_4L!<@[N@DyaIP_2My|:+.u>/6m,$D'

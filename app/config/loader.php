@@ -12,7 +12,8 @@ $loader->registerNamespaces([
     'Vokuro\Controllers' => $config->application->controllersDir,
     'Vokuro\Forms'       => $config->application->formsDir,
     'Vokuro'             => $config->application->libraryDir,
-    'Vokuro\Helpers'     => $config->application->helpersDir
+    'Common\Helpers'     => $config->application->helpersDir,
+    'Common\Behaviors'     => $config->application->behaviorsDir
 ]);
 
 $loader->register();
