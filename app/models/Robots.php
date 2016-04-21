@@ -50,8 +50,7 @@ class Robots extends \Phalcon\Mvc\Model
     {
         $this->setSource("Robots");
 
-        //$this->addBehavior(new Sluggable());
-
+        //behaviors
         $this->addBehavior(new Blameable());
 
         //event
