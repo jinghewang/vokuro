@@ -25,6 +25,7 @@ return new Config([
         'helpersDir'    => APP_DIR . '/common/helpers/',
         'behaviorsDir'  => APP_DIR . '/common/behaviors/',
         'trainsDir'     => APP_DIR . '/common/trains/',
+        'basesDir'      => APP_DIR . '/common/bases/',
         'baseUri' => '/',
         'publicUrl' => 'vokuro.phalconphp.com',
         'cryptSalt' => 'eEAfR|_&G&f,+vU]:jFr!!A&+71w1Ms9~8_4L!<@[N@DyaIP_2My|:+.u>/6m,$D'

@@ -14,7 +14,8 @@ $loader->registerNamespaces([
     'Vokuro'             => $config->application->libraryDir,
     'Common\Helpers'     => $config->application->helpersDir,
     'Common\Behaviors'   => $config->application->behaviorsDir,
-    'Common\traits'      => $config->application->trainsDir
+    'Common\Traits'      => $config->application->trainsDir,
+    'Common\Bases'      => $config->application->basesDir
 ]);
 
 $loader->register();

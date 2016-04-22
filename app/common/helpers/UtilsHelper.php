@@ -66,7 +66,7 @@ class UtilsHelper extends \Phalcon\Di\Injectable
 
 
 
-    public static function print_r_m($models,$pre=false)
+    public static function print_r_m($models,$pre=true)
     {
         $data = [];
         foreach ($models as $item) {

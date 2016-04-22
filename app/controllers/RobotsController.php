@@ -1,13 +1,17 @@
 <?php
 namespace Vokuro\Controllers;
 
+use Common\Helpers\UtilsHelper;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset;
-use Vokuro\Helpers\UtilsHelper;
 use Vokuro\Models\Parts;
 use Vokuro\Models\Robots;
 use Vokuro\Models\RobotsParts;
+use Phalcon\Annotations\Adapter\Memory as MemoryAdapter;
+use Phalcon\Mvc\Model\Transaction\Failed as TxFailed;
+use Phalcon\Mvc\Model\Transaction\Manager as TxManager;
+use Common\Bases\Exception as BaseException;
 
 
 class RobotsController extends ControllerBase
@@ -178,6 +182,65 @@ class RobotsController extends ControllerBase
         die;
     }
 
+    public function AnnoAction()
+    {
+        $reader = new MemoryAdapter();
+
+        // 反射在Example类的注释
+        $reflector = $reader->get('Vokuro\Models\Robots');
+
+        // 读取类中注释块中的注释
+        $annotations = $reflector->getPropertiesAnnotations();
+
+        // 遍历注释
+        foreach ($annotations as $annotation) {
+            print_r2($annotation);
+        }
+    }
+
+    public function txAction()
+    {
+        try {
+
+            // Create a transaction manager
+            $manager     = new TxManager();
+
+            // Request a transaction
+            $transaction = $manager->get();
+
+            $robot              = new Robots();
+            $robot->setTransaction($transaction);
+            $robot->name        = "WALL·E";
+            $robot->created_at  = date("Y-m-d");
+            if ($robot->save() == false) {
+                throw new BaseException('Cannot save robot',0,null,$robot);
+                //$transaction->rollback("Cannot save robot");
+            }
+
+            $robotPart              = new RobotParts();
+            $robotPart->setTransaction($transaction);
+            $robotPart->robots_id   = $robot->id;
+            $robotPart->type        = "head";
+            if ($robotPart->save() == false) {
+                throw new BaseException('Cannot save robot part',0,null,$robotPart);
+                //$transaction->rollback("Cannot save robot part");
+            }
+
+            // Everything's gone fine, let's commit the transaction
+            $transaction->commit();
+
+        }
+        catch(BaseException $be){
+            foreach ($be->getModel()->getMessages() as $mesage) {
+                echo $mesage->getMessage().PHP_EOL;
+            }
+
+        }
+        catch (TxFailed $e) {
+            echo "Failed, reason: ", $e->getMessage();
+        }
+    }
+
     public function queryAction()
     {
         $query = Robots::query()
@@ -185,6 +248,22 @@ class RobotsController extends ControllerBase
             ->execute();
 
         print_r($query->toArray());
+    }
+
+
+    public function query2Action()
+    {
+        $query = new Model\Query("select * from Vokuro\Models\Robots where name=:name:", $this->getDI());
+        $data = $query->execute(['name' => 'wjh']);
+        UtilsHelper::print_r_m($data, true);
+
+        $query = $this->modelsManager->createQuery("select * from Vokuro\Models\Robots where name=:name:");
+        $data = $query->execute(['name' => 'wjh']);
+        UtilsHelper::print_r_m($data,true);
+
+        $data = $this->modelsManager->executeQuery("select * from Vokuro\Models\Robots where name=:name:",['name'=>'wjh']);
+        UtilsHelper::print_r_m($data,true);
+
     }
 
     public function metaDataAction()

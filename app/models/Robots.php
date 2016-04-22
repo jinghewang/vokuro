@@ -6,8 +6,10 @@ use Common\Behaviors\Blameable;
 use Common\Behaviors\Sluggable;
 use Common\traits\MyTimestampable;
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Mvc\Model\Transaction;
 use Phalcon\Mvc\Model\Validator\Inclusionin;
 use Phalcon\Mvc\Model\Validator\Uniqueness;
+
 
 /**
  * Class Robots
@@ -15,6 +17,8 @@ use Phalcon\Mvc\Model\Validator\Uniqueness;
  *
  * @property RobotsParts $robotsParts
  * @property Parts $parts
+ * @SpecialFeature({someParameter="the value", false})
+ * @AnotherSpecialFeature(true)
  */
 
 class Robots extends \Phalcon\Mvc\Model
@@ -42,6 +46,8 @@ class Robots extends \Phalcon\Mvc\Model
 
     /**
      * @var integer
+     * @SpecialFeature({someParameter="the value", false})
+     * @Column(type="integer", length=70, nullable=false, label='年份')
      */
     public $year;
 
@@ -54,7 +60,6 @@ class Robots extends \Phalcon\Mvc\Model
 
         //behaviors
         $this->addBehavior(new Blameable());
-
 
         //$this->keepSnapshots(true);
 

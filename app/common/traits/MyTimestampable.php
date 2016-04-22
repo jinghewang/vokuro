@@ -6,7 +6,7 @@
  * Time: 下午2:27
  */
 
-namespace Common\traits;
+namespace Common\Traits;
 
 
 trait MyTimestampable
