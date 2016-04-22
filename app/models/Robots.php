@@ -4,6 +4,7 @@ namespace Vokuro\Models;
 
 use Common\Behaviors\Blameable;
 use Common\Behaviors\Sluggable;
+use Common\traits\MyTimestampable;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model\Validator\Inclusionin;
 use Phalcon\Mvc\Model\Validator\Uniqueness;
@@ -18,6 +19,8 @@ use Phalcon\Mvc\Model\Validator\Uniqueness;
 
 class Robots extends \Phalcon\Mvc\Model
 {
+
+    use MyTimestampable;
 
     /**
      *
@@ -38,7 +41,6 @@ class Robots extends \Phalcon\Mvc\Model
     public $type;
 
     /**
-     *
      * @var integer
      */
     public $year;
@@ -52,6 +54,9 @@ class Robots extends \Phalcon\Mvc\Model
 
         //behaviors
         $this->addBehavior(new Blameable());
+
+
+        //$this->keepSnapshots(true);
 
         //event
         $eventsManager = new EventsManager();

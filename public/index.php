@@ -28,6 +28,8 @@ try {
 
 	include APP_DIR . '/common/functions.php';
 
+	include APP_DIR . '/common/traits/MyTimestampable.php';
+
 	/**
 	 * Handle the request
 	 */

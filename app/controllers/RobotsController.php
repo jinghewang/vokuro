@@ -94,7 +94,7 @@ class RobotsController extends ControllerBase
         //create
         $robots = new Robots();
         $robots->name = 'wjh';
-        $robots->year = date('y');
+        //$robots->year = date('y');
         $robots->type = 1;
         if ($robots->save()){
             echo '成功';
@@ -109,6 +109,10 @@ class RobotsController extends ControllerBase
         //count
         $count =Robots::count();
         echo "count:{$count}";
+        $data = Robots::find([
+            'order'=> 'id desc'
+        ]);
+        print_r_models($data);
     }
 
     public function countAction()
@@ -117,6 +121,13 @@ class RobotsController extends ControllerBase
         echo "count:{$robots}";
     }
 
+    public function deleteAction()
+    {
+        $robots = Robots::find();
+        $robots->delete(function($item){
+           return $item->name == 'wjh';
+        });
+    }
 
     public function rewindAction()
     {
@@ -162,6 +173,7 @@ class RobotsController extends ControllerBase
 
         $robots = Robots::findFirst();
         $slug = $robots->getSlug();
+        //$robots->getChangedFields();
         var_dump($slug);
         die;
     }
@@ -173,6 +185,13 @@ class RobotsController extends ControllerBase
             ->execute();
 
         print_r($query->toArray());
+    }
+
+    public function metaDataAction()
+    {
+        $robot      = new Robots();
+        $md = $robot->getModelsMetaData();
+        print_r2($md->getStrategy());
     }
 
 }

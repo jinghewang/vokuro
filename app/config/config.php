@@ -3,7 +3,7 @@
 use Phalcon\Config;
 use Phalcon\Logger;
 
-define('APP_DIR', dirname(__DIR__));
+//define('APP_DIR', dirname(__DIR__));
 
 return new Config([
     'database' => [
@@ -14,16 +14,17 @@ return new Config([
         'dbname' => 'vokuro'
     ],
     'application' => [
-        'controllersDir' => APP_DIR . '/controllers/',
-        'modelsDir' => APP_DIR . '/models/',
-        'formsDir' => APP_DIR . '/forms/',
-        'viewsDir' => APP_DIR . '/views/',
-        'libraryDir' => APP_DIR . '/library/',
-        'pluginsDir' => APP_DIR . '/plugins/',
-        'cacheDir' => APP_DIR . '/cache/',
+        'controllersDir'=> APP_DIR . '/controllers/',
+        'modelsDir'     => APP_DIR . '/models/',
+        'formsDir'      => APP_DIR . '/forms/',
+        'viewsDir'      => APP_DIR . '/views/',
+        'libraryDir'    => APP_DIR . '/library/',
+        'pluginsDir'    => APP_DIR . '/plugins/',
+        'cacheDir'      => APP_DIR . '/cache/',
         'migrationsDir' => APP_DIR . '/migrations/',
-        'helpersDir' => APP_DIR . '/common/helpers/',
-        'behaviorsDir' => APP_DIR . '/common/behaviors/',
+        'helpersDir'    => APP_DIR . '/common/helpers/',
+        'behaviorsDir'  => APP_DIR . '/common/behaviors/',
+        'trainsDir'     => APP_DIR . '/common/trains/',
         'baseUri' => '/',
         'publicUrl' => 'vokuro.phalconphp.com',
         'cryptSalt' => 'eEAfR|_&G&f,+vU]:jFr!!A&+71w1Ms9~8_4L!<@[N@DyaIP_2My|:+.u>/6m,$D'
