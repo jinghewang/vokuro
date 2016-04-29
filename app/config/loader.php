@@ -15,10 +15,15 @@ $loader->registerNamespaces([
     'Common\Helpers'     => $config->application->helpersDir,
     'Common\Behaviors'   => $config->application->behaviorsDir,
     'Common\Traits'      => $config->application->trainsDir,
-    'Common\Bases'      => $config->application->basesDir
+    'Common\Bases'       => $config->application->basesDir,
+    'Vokuro\Components'  => $config->application->componentsDir,
 ]);
 
+
+$loader->registerClasses(['Vokuro\Components\SomeListener']);
+
 $loader->register();
+
 
 // Use composer autoloader to load vendor classes
 require_once __DIR__ . '/../../vendor/autoload.php';

@@ -5,6 +5,8 @@ use Common\Helpers\UtilsHelper;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset;
+use Vokuro\Components\MyComponent;
+use Vokuro\Components\SomeListener;
 use Vokuro\Models\Parts;
 use Vokuro\Models\Robots;
 use Vokuro\Models\RobotsParts;
@@ -313,6 +315,17 @@ class RobotsController extends ControllerBase
     public function param2Action($param1,$param2)
     {
         print_r2($this->dispatcher->getParams());
+    }
+
+    public function ComponentAction()
+    {
+        $eventManager = new EventsManager();
+        $eventManager->attach('my-component',new SomeListener());
+        //$eventManager->attach('my-component2',new OtherListener());
+        //--
+        $myComponet = new MyComponent();
+        $myComponet->setEventsManager($eventManager);
+        $myComponet->someTask();
     }
 
 }
