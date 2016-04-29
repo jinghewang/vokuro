@@ -11,16 +11,14 @@ $loader->registerNamespaces([
     'Vokuro\Models'      => $config->application->modelsDir,
     'Vokuro\Controllers' => $config->application->controllersDir,
     'Vokuro\Forms'       => $config->application->formsDir,
+    'Vokuro\Components'  => $config->application->componentsDir,
     'Vokuro'             => $config->application->libraryDir,
     'Common\Helpers'     => $config->application->helpersDir,
     'Common\Behaviors'   => $config->application->behaviorsDir,
     'Common\Traits'      => $config->application->trainsDir,
     'Common\Bases'       => $config->application->basesDir,
-    'Vokuro\Components'  => $config->application->componentsDir,
 ]);
 
-
-$loader->registerClasses(['Vokuro\Components\SomeListener']);
 
 $loader->register();
 

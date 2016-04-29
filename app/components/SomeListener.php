@@ -8,7 +8,7 @@ namespace Vokuro\Components;
  * Date: 16/4/29
  * Time: 上午9:11
  */
-class OtherListener
+class SomeListener
 {
 
     public function beforeSomeTask($event, $myComponent)
