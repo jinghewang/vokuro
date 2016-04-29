@@ -264,6 +264,33 @@ class RobotsController extends ControllerBase
         $data = $this->modelsManager->executeQuery("select * from Vokuro\Models\Robots where name=:name:",['name'=>'wjh']);
         UtilsHelper::print_r_m($data,true);
 
+        $robots = $this->modelsManager->createBuilder()
+            ->from('Vokuro\Models\Robots')
+            ->join('Vokuro\Models\RobotsParts')
+            ->orderBy('Vokuro\Models\Robots.name')
+            ->getQuery()
+            ->execute();
+        UtilsHelper::print_r_m($robots);
+
+
+    }
+
+    public function query3Action()
+    {
+        $conditions='1=1';
+        $params = null;
+        // A raw SQL statement
+        $sql   = "SELECT * FROM robots WHERE $conditions";
+
+        // Base model
+        $robot = new Robots();
+
+        // Execute the query
+        $result = $robot->getReadConnection()->query($sql, $params);
+        $data = $result->fetchAll();
+        print_r2($data);
+
+        //apc_store()
     }
 
     public function metaDataAction()
@@ -271,6 +298,21 @@ class RobotsController extends ControllerBase
         $robot      = new Robots();
         $md = $robot->getModelsMetaData();
         print_r2($md->getStrategy());
+    }
+
+
+    //http://vokuro/robot-param/123/456?name=wjh
+    public function paramAction($param1,$param2)
+    {
+        print_r2($this->request->get());
+        print_r2($param1);
+        print_r2($param2);
+    }
+
+    //http://vokuro/robot-param2/123/456?name=wjh
+    public function param2Action($param1,$param2)
+    {
+        print_r2($this->dispatcher->getParams());
     }
 
 }
