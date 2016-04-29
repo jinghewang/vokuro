@@ -13,12 +13,12 @@ class OtherListener
 
     public function beforeSomeTask($event, $myComponent)
     {
-        echo "这里, beforeSomeTask\n";
+        echo "那里, beforeSomeTask\n";
     }
 
     public function afterSomeTask($event, $myComponent)
     {
-        echo "这里, afterSomeTask\n";
+        echo "那里, afterSomeTask\n";
     }
 
 }

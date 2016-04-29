@@ -6,6 +6,7 @@ use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset;
 use Vokuro\Components\MyComponent;
+use Vokuro\Components\OtherListener;
 use Vokuro\Components\SomeListener;
 use Vokuro\Models\Parts;
 use Vokuro\Models\Robots;
@@ -321,7 +322,7 @@ class RobotsController extends ControllerBase
     {
         $eventManager = new EventsManager();
         $eventManager->attach('my-component',new SomeListener());
-        //$eventManager->attach('my-component2',new OtherListener());
+        $eventManager->attach('my-component',new OtherListener());
         //--
         $myComponet = new MyComponent();
         $myComponet->setEventsManager($eventManager);
