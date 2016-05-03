@@ -2,6 +2,7 @@
 namespace Vokuro\Controllers;
 
 use Common\Helpers\UtilsHelper;
+use Phalcon\Crypt;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset;
@@ -18,7 +19,7 @@ use Phalcon\Mvc\Model\Transaction\Manager as TxManager;
 use Common\Bases\Exception as BaseException;
 
 
-class RobotsController extends ControllerBase
+class TestController extends ControllerBase
 {
 
     public function indexAction()
@@ -27,20 +28,15 @@ class RobotsController extends ControllerBase
          * @var RobotsParts $robotsParts
          */
 
-        echo "<pre>";
-        $robots =  Robots::findFirst(1);
 
-        //方式1
-        foreach ($robots->robotsParts as $robotsParts) {
-            print_r($robotsParts->toArray());
-            print_r($robotsParts->robots->name);
-       }
+        $crypt = new Crypt();
+        // 使用 blowfish
+        $crypt->setKey('%31.1e$i86e$f!8jz');
 
-        //方式2
-        foreach ($robots->getRobotsParts() as $robotsParts) {
-            print_r($robotsParts->toArray());
-            print_r($robotsParts->getRobots()->toArray());
-        }
+        $text  = 'This is a secret text';
+
+        echo $crypt->encrypt($text);
+
 
 
         $this->view->disable();
