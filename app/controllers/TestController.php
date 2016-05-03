@@ -2,6 +2,7 @@
 namespace Vokuro\Controllers;
 
 use Common\Helpers\UtilsHelper;
+use Phalcon\Acl\Resource;
 use Phalcon\Crypt;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Model;
@@ -17,6 +18,8 @@ use Phalcon\Annotations\Adapter\Memory as MemoryAdapter;
 use Phalcon\Mvc\Model\Transaction\Failed as TxFailed;
 use Phalcon\Mvc\Model\Transaction\Manager as TxManager;
 use Common\Bases\Exception as BaseException;
+use Phalcon\Acl\Adapter\Memory as AclList;
+use Phalcon\Acl\Role;
 
 
 class TestController extends ControllerBase
@@ -36,6 +39,32 @@ class TestController extends ControllerBase
         $text  = 'This is a secret text';
 
         echo $crypt->encrypt($text);
+
+
+        $acl = new AclList();
+        $acl->setDefaultAction(\Phalcon\Acl::DENY);
+
+        // 创建角色
+        // The first parameter is the name, the second parameter is an optional description.
+        $roleAdmins = new Role("Administrators", "Super-User role");
+        $roleGuests = new Role("Guests");
+
+        $acl->addRole($roleAdmins);
+        $acl->addRole($roleGuests);
+
+        $resource = new Resource('Test');
+        $acl->addResource($resource,array('index','search'));
+
+        $acl->allow("Guests", "Test", "search");
+        $acl->allow("Guests", "Test", "create");
+        $acl->deny("Guests", "Test", "update");
+
+
+
+            $this->request->getBestLanguage();
+
+//        $acl->isAllowed()
+
 
 
 
